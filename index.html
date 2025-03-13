@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ManuelLuna</title>
+    <title>Mi portfolio</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+        nav{
+            display: flex;
+        }
+        button .portfolio{
+            order: -1;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <button class="curriculum" type="button" onclick="redireccionar(curriculum)">Aprende sobre mí</button>
+        <button class="portfolio" type="button" onclick="redireccionar(portfolio)">Mis proyectos</button>
+    </nav>
     <h1>
-        ¡Hola!
+        Mis proyectos
     </h1>
-    <button type="button" onclick="redireccionar(portfolio)">Aprende sobre mí</button>
 
     <p>Esto no es más que un test, pero espero que pronto sea mucho más.</p>
     <p>Pulsa el botón de abajo para recibir una sorpresa:</p>
@@ -17,8 +32,9 @@
 
 </body>
 <script>
+    const portfolio = 'index.html'
     const sorpresa = 'https://3.bp.blogspot.com/-rhjOp9ioIKU/U-EYIaS4x9I/AAAAAAAACYA/Obnn-7u_JTY/s1600/16E.gif'
-    const portfolio = 'portfolio/portfolio.html'
+    const curriculum = 'curriculum/curriculum.html'
     function redireccionar(enlace){
         window.open(enlace)
     }
