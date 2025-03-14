@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkanoid by Manuel Luna</title>
+    <style>
+        body {
+            background-color: darkslategray;
+        }
+
+        canvas {
+            width: 60vw;
+            border: 3px solid white;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            color: yellow;
+            font-size: 2vw;
+            width: 30vw;
+        }
+
+        p a {
+            color: darkorange;
+            text-decoration-line: none;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas onclick="play()">
+    </canvas>
+    <p>Este es mi primer intento en Javascript para programar el clásico juego "Arkanoid" siguiendo <a
+            href="https://www.javascript100.dev/">El tutorial de javascript100</a><br>
+        
+    controles: <br> -pulsa con el puntero en el recuadro blanco para comenzar a jugar. <br>
+    -Controla la paleta con las flechas del teclado o a/d</p>
+</body>
+<script>
+    document.onkeydown= (e)=>{play()
+    }
+
+    
+    
+    const canvas = document.querySelector("canvas")
+    canvas.width=800
+    canvas.height=600
+    const juego = canvas.getContext("2d")
+
+
+    const playerPadSprite = { positionX: 0, positionY: 0, barWidth: 0, barHeight: 0}
+    const ballSprite = { positionX: 0, positionY: 0, ballRadius: 4 }
+
+    playerPadSprite.barWidth = 100
+    playerPadSprite.barHeight = 10
+    playerPadSprite.positionX = (canvas.width - playerPadSprite.barWidth) / 2;
+    playerPadSprite.positionY = canvas.height - 20;
+    let movePadLeft = false;
+    let movePadRight = false;
+
+    ballSprite.positionX = canvas.width / 2
+    ballSprite.positionY = canvas.height - 40;
+
+    let playerPadSpeed = 9;
+    let ballXSpeed = 5;
+    let ballYSpeed = 5;
+
+    const brickWidht=canvas.width/15
+    const brickHeight= brickWidht/2
+    const nivel= new Array(72)
+    let brickAmount = nivel.length
+
+    function fillBricks(array) {
+        let x = 25
+        let y = 20
+        juego.fillStyle="White"
+        for (let index = 0; index < array.length; index++) {
+            const ladrillo = {x, y, witdh:40, height:20, isBroken:false}
+            x += ladrillo.witdh +1
+            if (x>750){
+                x=25
+                y+=ladrillo.height+1
+            }
+            array[index]=ladrillo
+        }
+    }
+
+    function drawBricks(array){
+
+        for (let index = 0; index < array.length; index++) {
+            
+
+            if (array[index].isBroken===true){
+                continue
+            }
+            
+            
+            juego.fillRect(...Object.values(array[index]))
+
+            if(ballSprite.positionY>array[index].y && 
+                ballSprite.positionY<array[index].y+array[index].height &&
+                ballSprite.positionX>array[index].x &&
+                ballSprite.positionX<array[index].x+array[index].witdh)
+                {
+                    ballYSpeed *=-1
+                    array[index].isBroken=true
+                    brickAmount--
+                }
+
+            if (brickAmount<=0) {
+                alert("¡Has ganado!")
+            }
+                
+        }
+
+                
+    }
+
+
+
+    function drawBall() {
+        juego.beginPath()
+        juego.arc(...Object.values(ballSprite), 0, Math.PI *2)
+        juego.fillStyle = "White"
+        juego.fill()
+    }
+
+    function drawPlayerPad() {
+        juego.fillStyle = "white"
+        juego.fillRect(...Object.values(playerPadSprite))
+    }
+
+    function moveBall() {
+
+        if (ballSprite.positionX > canvas.width || ballSprite.positionX < 0) {
+            ballXSpeed *= -1
+        }
+
+        if (ballSprite.positionY < 0) {
+            ballYSpeed *= -1
+        }
+
+        if (ballSprite.positionY === playerPadSprite.positionY && ballSprite.positionX>playerPadSprite.positionX && ballSprite.positionX<playerPadSprite.positionX+playerPadSprite.barWidth) {
+            ballYSpeed *= -1.01 
+            ballXSpeed *= 1.01
+            if(movePadLeft){
+                ballXSpeed-=0.5
+            }
+            else if(movePadRight){
+                ballXSpeed+=0.5
+            }
+            
+        }
+
+        if (ballSprite.positionY > canvas.height) {
+            document.location.reload()
+        }
+
+        ballSprite.positionX += ballXSpeed
+        ballSprite.positionY -= ballYSpeed
+
+    }
+
+    function movePlayerPad() {
+
+        if(playerPadSprite.positionX<0){
+            playerPadSprite.positionX=0
+        }
+        if(playerPadSprite.positionX>canvas.width-playerPadSprite.barWidth){
+            playerPadSprite.positionX=canvas.width-playerPadSprite.barWidth
+        }
+
+        if(movePadLeft){
+            playerPadSprite.positionX-=playerPadSpeed
+        }
+        else if (movePadRight){
+            playerPadSprite.positionX+=playerPadSpeed
+        }
+        
+    }
+
+    function eventHandler(){
+        document.onkeydown = (e) =>{
+            if (e.key ==='ArrowLeft'||e.key==='a') {
+                movePadLeft = true
+            }
+            else if (e.key ==='ArrowRight'||e.key==='d'){movePadRight = true}
+        }
+        document.onkeyup = (e) =>{
+            if (e.key ==='ArrowLeft'||e.key==='a') {movePadLeft = false}
+            else if (e.key ==='ArrowRight'||e.key==='d'){movePadRight = false}
+        }
+    }
+
+    function text(){
+        juego.fillStyle="White"
+        juego.font = '40px arial'
+        juego.fillText("Pulsa cualquier tecla para comenzar", 30, 90)
+    }
+
+    text()
+    drawPlayerPad()
+    drawBall()
+    fillBricks(nivel)
+
+    function play() {
+
+        eventHandler();
+        
+        juego.clearRect(0, 0, canvas.width, canvas.height)
+
+        movePlayerPad()
+        drawPlayerPad()
+        moveBall()
+        drawBall()
+        drawBricks(nivel)
+        console.log(movePadLeft, movePadRight);
+        
+
+        requestAnimationFrame(play)
+
+    }
+
+</script>
+
+</html>
+
