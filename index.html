@@ -8,26 +8,19 @@
 </head>
 <body>
     <nav class="nav">
-        <button class="curriculum" type="button" onclick="redireccionar(curriculum)">Aprende sobre mí</button>
+        <h1>Manuel Luna Fino</h1>
+        <button class="curriculum" type="button" onclick="redireccionar(curriculum)">Sobre mí</button>
         <button class="principal" type="button" onclick="redireccionar(principal)">Mis proyectos</button>
-        <button class="arkanoid" type="button" onclick="redireccionar(arkanoid)">Arkanoid</button>
     </nav>
-    <h1>
-        Mis proyectos
-    </h1>
-
-    <p>Esto no es más que un test, pero espero que pronto sea mucho más.</p>
-    <p>Pulsa el botón de abajo para recibir una sorpresa:</p>
-    <button type="button" onclick="redireccionar(sorpresa)">Púlsame</button>
-
+    <iframe id="iframe" src="misProyectos.html" frameborder="0">ef</iframe>
 </body>
 <script>
     const arkanoid = 'games/arkanoid.html'
-    const principal = 'index.html'
+    const principal = 'misProyectos.html'
     const sorpresa = 'https://3.bp.blogspot.com/-rhjOp9ioIKU/U-EYIaS4x9I/AAAAAAAACYA/Obnn-7u_JTY/s1600/16E.gif'
     const curriculum = 'curriculum/curriculum.html'
     function redireccionar(enlace){
-        window.open(enlace)
+        document.getElementById("iframe").src=enlace
     }
 </script>
 
