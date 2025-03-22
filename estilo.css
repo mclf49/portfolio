@@ -1,25 +1,35 @@
 body{
+    margin: 0;
+    padding: 0;
     background-image: url("./images/Fondo.jpg");
     background-size: cover;
+    background-position: right;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 iframe{
-    display: block;
-    height: 95vh;
+    flex-grow: 1;
+    width: 100%;
+    border: 0;    
 }
 
 .nav{
-    border: double gray;
-    height: 5vh;
+    display: flex;
+    flex-wrap: wrap;
     background-color:  rgba(255, 255, 255, 0.308);
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    font-size-adjust: 0.3;
 }
 .nav h1{
-float: left;
-margin: auto;
+   font-size: 300%;
+   margin: auto;
 }
 .nav button{
-height: 2.5em;
-float: right;
-margin: auto;
+float: left;
+padding-top: 0.5em;
+padding-bottom: 0.5em;
 }
