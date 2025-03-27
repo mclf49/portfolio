@@ -21,20 +21,20 @@ iframe{
     overflow: hidden;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
     font-size-adjust: 0.3;
 }
-nav div{
-    flex-grow: 1;
-    padding: 0.5em;
-    justify-content: center;
-    display: flex;
-    gap: 1em;
-}
 .nav h1{
+    border: solid green;
     flex-grow: 1;
    font-size: 300%;
    margin: auto;
 }
+.nav button{
+float: left;
+padding-top: 0.5em;
+padding-bottom: 0.5em;
+}
 #githubIcon{
-    height: 2em;
+    height:2em;
 }
