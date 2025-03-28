@@ -19,22 +19,26 @@ iframe{
     flex-wrap: wrap;
     background-color:  rgba(255, 255, 255, 0.308);
     overflow: hidden;
+    justify-content: space-around;
     align-items: center;
-    justify-content: space-between;
     text-align: center;
-    font-size-adjust: 0.3;
 }
 .nav h1{
-    border: solid green;
+    font-size: 2em;
     flex-grow: 1;
-   font-size: 300%;
-   margin: auto;
+    flex-shrink: 0;
+    margin: auto;
 }
-.nav button{
-float: left;
-padding-top: 0.5em;
-padding-bottom: 0.5em;
+.nav div{
+    display: flex;
+    gap:1em;
+    margin-right: 1em;
+    margin-left: 1em;    
+    justify-content: center;
+    align-items: center;
 }
 #githubIcon{
     height:2em;
+    margin-top: 15%;
+    margin-bottom: 3%;
 }
